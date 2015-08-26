@@ -1,5 +1,4 @@
 local config = require('config')
-local slaves = {"192.168.178.45"}
 
 local function showResult(good, bad)
     if bad > 0 then
@@ -31,7 +30,7 @@ local function getStates()
     if config.PIN_RGB_LED then
         ws2812.write(config.PIN_RGB_LED, string.char(50, 50, 0))
     end
-    for i, ip in ipairs(slaves) do
+    for i, ip in ipairs(config.SLAVE_IPS) do
         local sock = net.createConnection(net.TCP, 0)
         sock:on("receive", function(sck, c)
             print("states: "..c)
